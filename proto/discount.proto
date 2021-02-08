@@ -7,7 +7,6 @@ service DiscountService {
 
 message Discount {
     float percentage = 1;
-    uint32 value_in_cents = 2;
 }
 
 message DiscountRequest {

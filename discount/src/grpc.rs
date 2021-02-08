@@ -5,9 +5,15 @@ pub mod discount_tonic {
 }
 
 pub use discount_tonic::discount_service_server::DiscountServiceServer;
+pub use discount_tonic::{Discount, DiscountRequest};
 
 use discount_tonic::discount_service_server::DiscountService;
-use discount_tonic::{Discount, DiscountRequest, DiscountResponse};
+use discount_tonic::DiscountResponse;
+
+use crate::rules::black_friday::BlackFriday;
+use crate::rules::Rule;
+
+const RULES: [&dyn Rule; 1] = [&BlackFriday];
 
 #[derive(Debug, Default)]
 pub struct DiscountGrpc {}
@@ -20,12 +26,10 @@ impl DiscountService for DiscountGrpc {
     ) -> Result<Response<DiscountResponse>, Status> {
         println!("Request: {:?}", request);
 
+        let discount = Discount::apply(&RULES, request.into_inner());
+
         let response = DiscountResponse {
-            discount: Discount {
-                percentage: 4.2,
-                value_in_cents: 42,
-            }
-            .into(),
+            discount: discount.into(),
         };
 
         Ok(Response::new(response))
