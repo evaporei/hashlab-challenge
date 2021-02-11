@@ -10,9 +10,7 @@ message Discount {
 }
 
 message DiscountRequest {
-    oneof optional_user_id {
-        string user_id = 1;
-    }
+    string user_id = 1;
     string product_id = 2;
 }
 

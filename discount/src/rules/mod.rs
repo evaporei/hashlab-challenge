@@ -2,6 +2,7 @@ use crate::grpc::{Discount, DiscountRequest};
 use crate::math::clamp;
 
 pub mod black_friday;
+pub mod user_birthday;
 
 pub trait Rule {
     fn apply(&self, message: &DiscountRequest) -> f32;
@@ -23,7 +24,7 @@ impl Discount {
 #[cfg(test)]
 fn create_mock_discount_request() -> DiscountRequest {
     DiscountRequest {
-        optional_user_id: None,
+        user_id: "".into(),
         product_id: "".into(),
     }
 }
