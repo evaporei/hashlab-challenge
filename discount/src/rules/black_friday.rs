@@ -1,5 +1,6 @@
 use crate::grpc::DiscountRequest;
 use crate::rules::Rule;
+use async_trait::async_trait;
 use chrono::{Date, Datelike, Utc};
 
 const BLACK_FRIDAY_DAY: u32 = 25;
@@ -16,8 +17,9 @@ impl BlackFriday {
     }
 }
 
+#[async_trait]
 impl Rule for BlackFriday {
-    fn apply(&self, _message: &DiscountRequest) -> f32 {
+    async fn apply(&self, _message: &DiscountRequest) -> f32 {
         match Self::is_black_friday(Utc::today()) {
             true => 10.0,
             false => 0.0,

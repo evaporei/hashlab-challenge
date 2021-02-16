@@ -11,9 +11,12 @@ tonic = "0.4"
 prost = "0.7"
 tokio = { version = "1.0", features = ["macros", "rt-multi-thread"] }
 chrono = "0.4"
+async-trait = "0.1"
+futures = "0.3"
 
 [dev-dependencies]
 faketime = "0.2"
+tokio-test = "0.4"
 
 [build-dependencies]
 tonic-build = "0.4"

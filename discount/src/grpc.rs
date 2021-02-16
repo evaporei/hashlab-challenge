@@ -11,9 +11,10 @@ use discount_tonic::discount_service_server::DiscountService;
 use discount_tonic::DiscountResponse;
 
 use crate::rules::black_friday::BlackFriday;
+use crate::rules::user_birthday::UserBirthday;
 use crate::rules::Rule;
 
-const RULES: [&dyn Rule; 1] = [&BlackFriday];
+const RULES: [&dyn Rule; 2] = [&BlackFriday, &UserBirthday];
 
 #[derive(Debug, Default)]
 pub struct DiscountGrpc {}
@@ -26,7 +27,7 @@ impl DiscountService for DiscountGrpc {
     ) -> Result<Response<DiscountResponse>, Status> {
         println!("Request: {:?}", request);
 
-        let discount = Discount::apply(&RULES, request.into_inner());
+        let discount = Discount::apply(&RULES, request.into_inner()).await;
 
         let response = DiscountResponse {
             discount: discount.into(),
