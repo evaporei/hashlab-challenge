@@ -28,3 +28,32 @@ services:
         condition: service_healthy
     links:
       - user-postgres
+
+  js-commons-base:
+    build:
+      context: .
+      dockerfile: ./js-commons/Dockerfile
+      target: js-commons
+    volumes:
+      - ./js-commons:/js-commons
+      - /js-commons/node_modules
+
+  user-migrate-up:
+    extends: js-commons-base
+    env_file: ./user/.env
+    entrypoint: node_modules/.bin/sequelize db:migrate --config src/config/sequelize.js --migrations-path /user/src/ports/sequelize/migrations/
+    volumes:
+      - ./user:/user
+    depends_on:
+      user-postgres:
+        condition: service_healthy
+
+  user-migrate-down:
+    extends: js-commons-base
+    env_file: ./user/.env
+    entrypoint: node_modules/.bin/sequelize db:migrate:undo --config src/config/sequelize.js --migrations-path /user/src/ports/sequelize/migrations/
+    volumes:
+      - ./user:/user
+    depends_on:
+      user-postgres:
+        condition: service_healthy

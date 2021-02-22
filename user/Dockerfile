@@ -1,6 +1,6 @@
 FROM node:alpine AS base
-WORKDIR /js-commons
 COPY ./proto /proto
+WORKDIR /js-commons
 COPY ./js-commons /js-commons
 RUN npm install
 WORKDIR /

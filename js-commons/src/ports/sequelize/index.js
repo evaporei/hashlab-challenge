@@ -3,6 +3,8 @@ const Sequelize = require('sequelize')
 const config = require('../../config/sequelize')
 const DatabaseError = require('../../errors/database')
 
+const { DataTypes } = Sequelize
+
 const defaults = {
   define: {
     paranoid: true,
@@ -19,7 +21,7 @@ const create = (models) => {
 
   const createModelInstance = (model) => ({
     model,
-    instance: model.create(sequelize)
+    instance: model.create(sequelize, DataTypes)
   })
 
   const associateModels = ({ model, instance }) => {
