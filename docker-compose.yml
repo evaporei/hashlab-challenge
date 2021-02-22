@@ -1,0 +1,30 @@
+version: '2.3'
+
+services:
+  user-postgres:
+    image: postgres:9.6-alpine
+    ports:
+      - 5432
+    env_file: ./user/.env
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  user-service:
+    build:
+      context: .
+      dockerfile: ./user/Dockerfile
+      target: user-service
+    env_file: ./user/.env
+    ports:
+      - "50051:50051"
+    volumes:
+      - ./user:/user-service
+      - /user/node_modules
+    depends_on:
+      user-postgres:
+        condition: service_healthy
+    links:
+      - user-postgres

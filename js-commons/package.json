@@ -1,18 +1,20 @@
 {
-  "name": "user",
+  "name": "js-commons",
   "version": "1.0.0",
   "description": "",
-  "main": "src/bin/index.js",
+  "main": "index.js",
   "scripts": {
-    "start": "node src/bin/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@grpc/grpc-js": "^1.2.7",
-    "@grpc/proto-loader": "^0.5.6",
-    "js-commons": "file:../js-commons"
+    "bluebird": "^3.7.2",
+    "dotenv": "^8.2.0",
+    "pg": "^8.5.1",
+    "pg-hstore": "^2.3.3",
+    "pg-native": "^3.0.0",
+    "sequelize": "^6.5.0"
   }
 }
