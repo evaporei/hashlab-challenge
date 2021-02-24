@@ -1,14 +1,12 @@
-const getUser = (call, callback) => {
-  console.log('req', call.request)
-
-  callback(null, {
-    user: {
-      id: call.request.user_id,
-      first_name: 'john',
-      last_name: 'doe',
-      date_of_birth: '1997-10-09',
-    },
+const getUser = repository => async (call, callback) => {
+  const user = await repository.User.findOne({
+    where: { id: call.request.user_id },
+    raw: true,
   })
+
+  callback(null, { user })
 }
 
-module.exports = { getUser }
+module.exports = (repository) => ({
+  getUser: getUser(repository),
+})

@@ -11,7 +11,7 @@ const main = async () => {
 
   const grpcServer = createGrpcServer()
 
-  loadProtos(grpcServer)
+  loadProtos(grpcServer, repo)
 
   await startGrpcServer(grpcServer)
 

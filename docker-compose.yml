@@ -12,22 +12,29 @@ services:
       timeout: 5s
       retries: 5
 
-  user-service:
+  user-service-base:
     build:
       context: .
       dockerfile: ./user/Dockerfile
       target: user-service
-    env_file: ./user/.env
-    ports:
-      - "50051:50051"
     volumes:
       - ./user:/user-service
       - /user/node_modules
+
+  user-service:
+    extends: user-service-base
+    env_file: ./user/.env
+    ports:
+      - "50051:50051"
     depends_on:
       user-postgres:
         condition: service_healthy
     links:
       - user-postgres
+
+  user-service-test:
+    extends: user-service-base
+    entrypoint: npm test
 
   js-commons-base:
     build:

@@ -17,9 +17,9 @@ const loadPackageDefinition = (protoPath) => {
   return grpc.loadPackageDefinition(packageDefinition)
 }
 
-const loadProtos = (server) => {
+const loadProtos = (server, repository) => {
   const { user } = loadPackageDefinition('../../../../proto/user.proto')
-  server.addService(user.UserService.service, userService)
+  server.addService(user.UserService.service, userService(repository))
 }
 
 module.exports = { loadPackageDefinition, loadProtos }
