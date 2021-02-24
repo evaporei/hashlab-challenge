@@ -7,7 +7,7 @@ twoDaysAgo.setDate(today.getDate() - 2)
 module.exports = {
   up: queryInterface => queryInterface.bulkInsert(tableName, [
       {
-        id: 'a',
+        id: 'usr_ckljj7jy900001iofhtrehz8u',
         first_name: 'Happy',
         last_name: 'Birthday',
         date_of_birth: today,
@@ -15,7 +15,7 @@ module.exports = {
         updated_at: today,
       },
       {
-        id: 'b',
+        id: 'usr_ckljj7jye00011iof2oh53ccr',
         first_name: 'No',
         last_name: 'Birthday',
         date_of_birth: twoDaysAgo,
