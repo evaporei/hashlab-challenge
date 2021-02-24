@@ -12,6 +12,12 @@ describe('getUser', () => {
       updated_at: '2021-02-24T18:22:05.175Z',
       deleted_at: null
     }
+    const expectedUser = {
+      id: userId,
+      first_name: 'Jose',
+      last_name: 'Maria',
+      date_of_birth: '2021-02-24'
+    }
 
     const fakeFindOne = jest.fn().mockReturnValueOnce(Promise.resolve(existingUser))
     const fakeRepository = {
@@ -34,7 +40,7 @@ describe('getUser', () => {
     expect(fakeCallback.mock.calls.length).toBe(1)
     expect(fakeCallback.mock.calls[0]).toEqual([
       null,
-      { user: existingUser }
+      { user: expectedUser }
     ])
   })
 
