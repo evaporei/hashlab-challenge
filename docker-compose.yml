@@ -38,6 +38,10 @@ services:
       - ./js-commons:/js-commons
       - /js-commons/node_modules
 
+  js-commons-test:
+    extends: js-commons-base
+    entrypoint: npm test
+
   user-migrate-up:
     extends: js-commons-base
     env_file: ./user/.env

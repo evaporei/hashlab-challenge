@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
@@ -17,5 +17,8 @@
     "pg-native": "^3.0.0",
     "sequelize": "^6.5.0",
     "sequelize-cli": "^6.2.0"
+  },
+  "devDependencies": {
+    "jest": "^26.6.3"
   }
 }
