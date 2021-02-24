@@ -1,7 +1,7 @@
 const tableName = 'users'
 
 module.exports = {
-  up: (queryInterface, { DataTypes: { DATE, STRING } }) => queryInterface.createTable(tableName, {
+  up: (queryInterface, { DataTypes: { DATE, DATEONLY, STRING } }) => queryInterface.createTable(tableName, {
     id: {
       type: STRING,
       primaryKey: true,
@@ -18,7 +18,7 @@ module.exports = {
       required: true
     },
     date_of_birth: {
-      type: DATE,
+      type: DATEONLY,
       allowNull: false,
       required: true
     },

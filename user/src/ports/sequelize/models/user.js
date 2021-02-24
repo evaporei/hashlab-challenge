@@ -1,4 +1,4 @@
-const create = (sequelize, { DATE, STRING }) =>
+const create = (sequelize, { DATEONLY, STRING }) =>
   sequelize.define('User', {
     id: {
       type: STRING,
@@ -17,7 +17,7 @@ const create = (sequelize, { DATE, STRING }) =>
       required: true
     },
     date_of_birth: {
-      type: DATE,
+      type: DATEONLY,
       allowNull: false,
       required: true
     }
