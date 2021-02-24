@@ -1,6 +1,7 @@
 const setupDotenv = require('js-commons/src/config')
-const { createServer, startGrpcServer } = require('../ports/grpc')
+const { createGrpcServer, startGrpcServer } = require('js-commons/src/ports/grpc')
 const repository = require('js-commons/src/ports/repository')
+const { loadProtos } = require('../proto-loader')
 const models = require('../ports/sequelize/models')
 
 setupDotenv()
@@ -8,9 +9,11 @@ setupDotenv()
 const main = async () => {
   const repo = await repository.connect(models)
 
-  const server = createServer()
+  const grpcServer = createGrpcServer()
 
-  await startGrpcServer(server)
+  loadProtos(grpcServer)
+
+  await startGrpcServer(grpcServer)
 
   console.log('GRPC server started listening')
 }
