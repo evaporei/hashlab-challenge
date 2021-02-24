@@ -57,3 +57,23 @@ services:
     depends_on:
       user-postgres:
         condition: service_healthy
+
+  user-seed-generate:
+    extends: js-commons-base
+    env_file: ./user/.env
+    entrypoint: node_modules/.bin/sequelize db:seed:all --config src/config/sequelize.js --seeders-path /user/src/ports/sequelize/seeders/
+    volumes:
+      - ./user:/user
+    depends_on:
+      user-postgres:
+        condition: service_healthy
+
+  user-seed-destroy:
+    extends: js-commons-base
+    env_file: ./user/.env
+    entrypoint: node_modules/.bin/sequelize db:seed:undo --config src/config/sequelize.js --seeders-path /user/src/ports/sequelize/seeders/
+    volumes:
+      - ./user:/user
+    depends_on:
+      user-postgres:
+        condition: service_healthy
