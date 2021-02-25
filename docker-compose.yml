@@ -12,6 +12,17 @@ services:
       timeout: 5s
       retries: 5
 
+  product-postgres:
+    image: postgres:9.6-alpine
+    ports:
+      - 5432
+    env_file: ./product/.env
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
   user-service-base:
     build:
       context: .
@@ -103,7 +114,52 @@ services:
     env_file: ./product/.env
     ports:
       - "3000:3000"
+    depends_on:
+      product-postgres:
+        condition: service_healthy
+    links:
+      - product-postgres
 
   product-service-test:
     extends: product-service-base
     entrypoint: npm test
+
+  product-migrate-up:
+    extends: js-commons-base
+    env_file: ./product/.env
+    entrypoint: node_modules/.bin/sequelize db:migrate --config src/config/sequelize.js --migrations-path /product/src/ports/sequelize/migrations/
+    volumes:
+      - ./product:/product
+    depends_on:
+      product-postgres:
+        condition: service_healthy
+
+  product-migrate-down:
+    extends: js-commons-base
+    env_file: ./product/.env
+    entrypoint: node_modules/.bin/sequelize db:migrate:undo --config src/config/sequelize.js --migrations-path /product/src/ports/sequelize/migrations/
+    volumes:
+      - ./product:/product
+    depends_on:
+      product-postgres:
+        condition: service_healthy
+
+  product-seed-generate:
+    extends: js-commons-base
+    env_file: ./product/.env
+    entrypoint: node_modules/.bin/sequelize db:seed:all --config src/config/sequelize.js --seeders-path /product/src/ports/sequelize/seeders/
+    volumes:
+      - ./product:/product
+    depends_on:
+      product-postgres:
+        condition: service_healthy
+
+  product-seed-destroy:
+    extends: js-commons-base
+    env_file: ./product/.env
+    entrypoint: node_modules/.bin/sequelize db:seed:undo --config src/config/sequelize.js --seeders-path /product/src/ports/sequelize/seeders/
+    volumes:
+      - ./product:/product
+    depends_on:
+      product-postgres:
+        condition: service_healthy
