@@ -9,6 +9,8 @@ const createApp = () => {
 
   setupRoutes(app)
 
+  app.use(middlewares.globalErrorHandler)
+
   return app
 }
 
