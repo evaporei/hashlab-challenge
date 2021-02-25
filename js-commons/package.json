@@ -10,19 +10,19 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@grpc/grpc-js": "^1.2.8",
-    "bluebird": "^3.7.2",
-    "cuid": "^2.1.8",
-    "dotenv": "^8.2.0",
-    "escriba": "^2.10.0",
-    "log4js": "^6.3.0",
-    "pg": "^8.5.1",
-    "pg-hstore": "^2.3.3",
-    "pg-native": "^3.0.0",
-    "sequelize": "^6.5.0",
-    "sequelize-cli": "^6.2.0"
+    "@grpc/grpc-js": "1.2.8",
+    "bluebird": "3.7.2",
+    "cuid": "2.1.8",
+    "dotenv": "8.2.0",
+    "escriba": "2.10.0",
+    "log4js": "6.3.0",
+    "pg": "8.5.1",
+    "pg-hstore": "2.3.3",
+    "pg-native": "3.0.0",
+    "sequelize": "6.5.0",
+    "sequelize-cli": "6.2.0"
   },
   "devDependencies": {
-    "jest": "^26.6.3"
+    "jest": "26.6.3"
   }
 }
