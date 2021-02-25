@@ -88,3 +88,22 @@ services:
     depends_on:
       user-postgres:
         condition: service_healthy
+
+  product-service-base:
+    build:
+      context: .
+      dockerfile: ./product/Dockerfile
+      target: product-service
+    volumes:
+      - ./product:/product-service
+      - /product/node_modules
+
+  product-service:
+    extends: product-service-base
+    env_file: ./product/.env
+    ports:
+      - "3000:3000"
+
+  product-service-test:
+    extends: product-service-base
+    entrypoint: npm test
