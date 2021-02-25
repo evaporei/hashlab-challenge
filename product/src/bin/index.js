@@ -1,5 +1,6 @@
 const { startHttpServer } = require('js-commons/src/ports/http')
 const setupDotenv = require('js-commons/src/config')
+const { logger } = require('js-commons/src/logger')
 const { createApp } = require('../app')
 
 setupDotenv()
@@ -9,8 +10,8 @@ const main = async () => {
 
   startHttpServer(app)
 
-  console.log('HTTP server started listening')
+  logger.info('HTTP server started listening')
 }
 
 main()
-  .catch(err => console.log('Failed to start HTTP server:', err))
+  .catch(logger.error)
