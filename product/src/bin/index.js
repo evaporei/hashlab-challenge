@@ -10,7 +10,7 @@ setupDotenv()
 const main = async () => {
   const repo = await repository.connect(models)
 
-  const app = createApp()
+  const app = createApp(repo)
 
   startHttpServer(app)
 
