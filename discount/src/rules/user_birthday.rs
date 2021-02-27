@@ -1,10 +1,10 @@
 use crate::grpc::DiscountRequest;
 use crate::rules::Rule;
 use async_trait::async_trait;
-use chrono::{Date, Datelike, NaiveDate, Local};
+use chrono::{Date, Datelike, Local, NaiveDate};
+use std::env;
 use user_tonic::user_service_client::UserServiceClient;
 use user_tonic::{User, UserRequest, UserResponse};
-use std::env;
 
 pub mod user_tonic {
     tonic::include_proto!("user");
