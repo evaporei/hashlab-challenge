@@ -1,18 +1,8 @@
-use tonic::{Request, Response, Status};
-
-pub mod discount_tonic {
-    tonic::include_proto!("discount");
-}
-
-pub use discount_tonic::discount_service_server::DiscountServiceServer;
-pub use discount_tonic::{Discount, DiscountRequest};
-
-pub use discount_tonic::discount_service_server::DiscountService;
-use discount_tonic::DiscountResponse;
-
+use crate::ports::tonic::{Discount, DiscountRequest, DiscountResponse, DiscountService};
 use crate::rules::black_friday::BlackFriday;
 use crate::rules::user_birthday::UserBirthday;
 use crate::rules::Rule;
+use tonic::{Request, Response, Status};
 
 const RULES: [&dyn Rule; 2] = [&BlackFriday, &UserBirthday];
 

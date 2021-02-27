@@ -1,4 +1,4 @@
-use crate::service::{DiscountService, DiscountServiceServer};
+use crate::ports::tonic::{DiscountService, DiscountServiceServer};
 use std::env;
 use tonic::transport::Server;
 

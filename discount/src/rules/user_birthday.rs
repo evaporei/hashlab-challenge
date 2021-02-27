@@ -1,14 +1,8 @@
+use crate::ports::tonic::{DiscountRequest, User, UserRequest, UserResponse, UserServiceClient};
 use crate::rules::Rule;
-use crate::service::DiscountRequest;
 use async_trait::async_trait;
 use chrono::{Date, Datelike, Local, NaiveDate};
 use std::env;
-use user_tonic::user_service_client::UserServiceClient;
-use user_tonic::{User, UserRequest, UserResponse};
-
-pub mod user_tonic {
-    tonic::include_proto!("user");
-}
 
 pub async fn get_user(id: &str) -> Result<Option<User>, Box<dyn std::error::Error>> {
     let mut client = UserServiceClient::connect(env::var("USER_SERVICE_HOST")?).await?;
