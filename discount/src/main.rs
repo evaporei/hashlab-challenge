@@ -3,7 +3,7 @@ use tonic::transport::Server;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let address = "[::1]:4000".parse()?;
+    let address = "0.0.0.0:4000".parse()?;
     let discount_grpc = DiscountGrpc::default();
 
     Server::builder()
