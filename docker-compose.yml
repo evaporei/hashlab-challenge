@@ -119,6 +119,7 @@ services:
         condition: service_healthy
     links:
       - product-postgres
+      - discount-service
 
   product-service-test:
     extends: product-service-base
@@ -163,3 +164,23 @@ services:
     depends_on:
       product-postgres:
         condition: service_healthy
+
+  discount-service-base:
+    build:
+      context: .
+      dockerfile: ./discount/Dockerfile
+      target: discount-service
+    volumes:
+      - ./discount:/discount-service
+      - /discount/target
+
+  discount-service:
+    extends: discount-service-base
+    ports:
+      - "4000:4000"
+    links:
+      - user-service
+
+  discount-service-test:
+    extends: discount-service-base
+    entrypoint: cargo test

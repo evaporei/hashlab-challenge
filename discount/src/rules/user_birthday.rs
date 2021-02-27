@@ -10,7 +10,7 @@ pub mod user_tonic {
 }
 
 pub async fn get_user(id: &str) -> Result<Option<User>, Box<dyn std::error::Error>> {
-    let mut client = UserServiceClient::connect("http://0.0.0.0:50051").await?;
+    let mut client = UserServiceClient::connect("http://user-service:50051").await?;
 
     let request = tonic::Request::new(UserRequest { user_id: id.into() });
 
