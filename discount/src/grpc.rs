@@ -7,7 +7,7 @@ pub mod discount_tonic {
 pub use discount_tonic::discount_service_server::DiscountServiceServer;
 pub use discount_tonic::{Discount, DiscountRequest};
 
-use discount_tonic::discount_service_server::DiscountService;
+pub use discount_tonic::discount_service_server::DiscountService;
 use discount_tonic::DiscountResponse;
 
 use crate::rules::black_friday::BlackFriday;
