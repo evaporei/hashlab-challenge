@@ -1,4 +1,5 @@
 const grpc = require('@grpc/grpc-js')
+const protoLoader = require('@grpc/proto-loader')
 
 const createGrpcServer = () => new grpc.Server()
 
@@ -8,4 +9,26 @@ const startGrpcServer = server => new Promise(resolve =>
     resolve()
   }))
 
-module.exports = { createGrpcServer, startGrpcServer }
+const loadPackageDefinition = (protoPath) => {
+  const packageDefinition = protoLoader.loadSync(
+    `${__dirname}/${protoPath}`,
+    {
+      keepCase: true,
+      longs: String,
+      enums: String,
+      defaults: true,
+      oneofs: true,
+    }
+  )
+
+  return grpc.loadPackageDefinition(packageDefinition)
+}
+
+const createCredentials = () => grpc.credentials.createInsecure()
+
+module.exports = {
+  createGrpcServer,
+  startGrpcServer,
+  loadPackageDefinition,
+  createCredentials
+}
