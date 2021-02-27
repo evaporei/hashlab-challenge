@@ -1,7 +1,7 @@
 use crate::grpc::DiscountRequest;
 use crate::rules::Rule;
 use async_trait::async_trait;
-use chrono::{Date, Datelike, NaiveDate, Utc};
+use chrono::{Date, Datelike, NaiveDate, Local};
 use user_tonic::user_service_client::UserServiceClient;
 use user_tonic::{User, UserRequest, UserResponse};
 
@@ -22,7 +22,7 @@ pub async fn get_user(id: &str) -> Result<Option<User>, Box<dyn std::error::Erro
 pub struct UserBirthday;
 
 impl UserBirthday {
-    fn is_user_birthday(today: Date<Utc>, user_birthday: NaiveDate) -> bool {
+    fn is_user_birthday(today: Date<Local>, user_birthday: NaiveDate) -> bool {
         match (
             today.day() == user_birthday.day(),
             today.month() == user_birthday.month(),
@@ -46,7 +46,7 @@ impl Rule for UserBirthday {
                         Err(_) => return 0.0,
                     };
 
-                    if UserBirthday::is_user_birthday(Utc::today(), user_birthday) {
+                    if UserBirthday::is_user_birthday(Local::today(), user_birthday) {
                         return 5.0;
                     }
                 }
@@ -62,19 +62,19 @@ use chrono::TimeZone;
 #[test]
 fn test_user_birthday() {
     assert!(UserBirthday::is_user_birthday(
-        Utc.ymd(2021, 2, 7),
+        Local.ymd(2021, 2, 7),
         NaiveDate::from_ymd(2021, 2, 7)
     ));
     assert!(UserBirthday::is_user_birthday(
-        Utc.ymd(2020, 2, 7),
+        Local.ymd(2020, 2, 7),
         NaiveDate::from_ymd(2022, 2, 7)
     ));
     assert!(!UserBirthday::is_user_birthday(
-        Utc.ymd(2020, 2, 8),
+        Local.ymd(2020, 2, 8),
         NaiveDate::from_ymd(2020, 2, 7)
     ));
     assert!(!UserBirthday::is_user_birthday(
-        Utc.ymd(2020, 1, 7),
+        Local.ymd(2020, 1, 7),
         NaiveDate::from_ymd(2020, 2, 7)
     ));
 }
