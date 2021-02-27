@@ -4,13 +4,14 @@ use async_trait::async_trait;
 use chrono::{Date, Datelike, NaiveDate, Local};
 use user_tonic::user_service_client::UserServiceClient;
 use user_tonic::{User, UserRequest, UserResponse};
+use std::env;
 
 pub mod user_tonic {
     tonic::include_proto!("user");
 }
 
 pub async fn get_user(id: &str) -> Result<Option<User>, Box<dyn std::error::Error>> {
-    let mut client = UserServiceClient::connect("http://user-service:50051").await?;
+    let mut client = UserServiceClient::connect(env::var("USER_SERVICE_HOST")?).await?;
 
     let request = tonic::Request::new(UserRequest { user_id: id.into() });
 
