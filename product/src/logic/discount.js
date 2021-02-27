@@ -9,15 +9,18 @@ const calculateCentsValue = (priceInCents, percentage) => {
 }
 
 const calculateDiscount = (discountClient, userId = '') => async product => {
-  const { percentage } = await discountClient.getDiscount({ product_id: product.id, user_id: userId })
+  const { percentage } = await discountClient.getDiscount({
+    product_id: product.id,
+    user_id: userId,
+  })
     .catch(() => ({ percentage: 0.0 }))
 
   return {
     ...product,
     discount: {
       percentage,
-      value_in_cents: calculateCentsValue(product.price, percentage)
-    }
+      value_in_cents: calculateCentsValue(product.price, percentage),
+    },
   }
 }
 

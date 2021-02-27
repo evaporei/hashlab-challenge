@@ -9,7 +9,7 @@ const sequelizeConfig = {
   username: process.env.POSTGRES_USER,
   password: process.env.POSTGRES_PASSWORD,
   dialect: 'postgres',
-  logging: false
+  logging: false,
 }
 
 module.exports = sequelizeConfig

@@ -7,16 +7,16 @@ test('resourceNotFound', () => {
     status: statusCode => {
       expect(statusCode).toBe(404)
       return {
-        send: fakeSend
+        send: fakeSend,
       }
-    }
+    },
   }
 
   resourceNotFound(fakeReq, fakeRes)
 
   expect(fakeSend.mock.calls.length).toBe(1)
   expect(fakeSend.mock.calls[0][0]).toEqual({
-    errors: [{ message: '/non_existing resource not found' }]
+    errors: [{ message: '/non_existing resource not found' }],
   })
 })
 
@@ -27,15 +27,15 @@ test('methodNotAllowed', () => {
     status: statusCode => {
       expect(statusCode).toBe(405)
       return {
-        send: fakeSend
+        send: fakeSend,
       }
-    }
+    },
   }
 
   methodNotAllowed(fakeReq, fakeRes)
 
   expect(fakeSend.mock.calls.length).toBe(1)
   expect(fakeSend.mock.calls[0][0]).toEqual({
-    errors: [{ message: 'PATCH method is not allowed for /users resource' }]
+    errors: [{ message: 'PATCH method is not allowed for /users resource' }],
   })
 })

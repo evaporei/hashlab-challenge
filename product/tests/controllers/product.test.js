@@ -11,7 +11,7 @@ describe('list', () => {
           description: 'cool bike',
           created_at: new Date(),
           updated_at: new Date(),
-          deleted_at: null
+          deleted_at: null,
         },
         {
           id: 'prd_cklk9ynb2000101rt289h81ox',
@@ -20,7 +20,7 @@ describe('list', () => {
           description: 'bad video-game, it\'s broken',
           created_at: new Date(),
           updated_at: new Date(),
-          deleted_at: null
+          deleted_at: null,
         },
       ]
       const expectedProducts = [
@@ -31,8 +31,8 @@ describe('list', () => {
           description: 'cool bike',
           discount: {
             percentage: 0,
-            value_in_cents: 0
-          }
+            value_in_cents: 0,
+          },
         },
         {
           id: 'prd_cklk9ynb2000101rt289h81ox',
@@ -41,8 +41,8 @@ describe('list', () => {
           description: 'bad video-game, it\'s broken',
           discount: {
             percentage: 0,
-            value_in_cents: 0
-          }
+            value_in_cents: 0,
+          },
         },
       ]
 
@@ -50,10 +50,10 @@ describe('list', () => {
       const fakeRepository = {
         Product: {
           findAll: fakeFindAll,
-        }
+        },
       }
       const fakeDiscountClient = {
-        getDiscount: jest.fn().mockReturnValue(Promise.resolve({ percentage: 0.0 }))
+        getDiscount: jest.fn().mockReturnValue(Promise.resolve({ percentage: 0.0 })),
       }
 
       const fakeReq = { get: jest.fn().mockReturnValueOnce(undefined), query: {} }
@@ -62,9 +62,9 @@ describe('list', () => {
         status: statusCode => {
           expect(statusCode).toBe(200)
           return {
-            send: fakeSend
+            send: fakeSend,
           }
-        }
+        },
       }
 
       await productController.list(fakeRepository, fakeDiscountClient)(fakeReq, fakeRes)
@@ -75,7 +75,7 @@ describe('list', () => {
         limit: 10,
         offset: 0,
         order: [['id', 'DESC']],
-        raw: true
+        raw: true,
       }])
       expect(fakeReq.get.mock.calls.length).toEqual(1)
       expect(fakeReq.get.mock.calls[0]).toEqual(['X-USER-ID'])
@@ -91,10 +91,10 @@ describe('list', () => {
       const fakeRepository = {
         Product: {
           findAll: fakeFindAll,
-        }
+        },
       }
       const fakeDiscountClient = {
-        getDiscount: jest.fn().mockReturnValue(Promise.resolve({ percentage: 0.0 }))
+        getDiscount: jest.fn().mockReturnValue(Promise.resolve({ percentage: 0.0 })),
       }
 
       const fakeReq = { get: jest.fn().mockReturnValueOnce(undefined), query: {} }
@@ -103,9 +103,9 @@ describe('list', () => {
         status: statusCode => {
           expect(statusCode).toBe(200)
           return {
-            send: fakeSend
+            send: fakeSend,
           }
-        }
+        },
       }
 
       await productController.list(fakeRepository, fakeDiscountClient)(fakeReq, fakeRes)
@@ -116,7 +116,7 @@ describe('list', () => {
         limit: 10,
         offset: 0,
         order: [['id', 'DESC']],
-        raw: true
+        raw: true,
       }])
       expect(fakeReq.get.mock.calls.length).toEqual(1)
       expect(fakeReq.get.mock.calls[0]).toEqual(['X-USER-ID'])
@@ -136,7 +136,7 @@ describe('list', () => {
             description: 'cool bike',
             created_at: new Date(),
             updated_at: new Date(),
-            deleted_at: null
+            deleted_at: null,
           },
           {
             id: 'prd_cklk9ynb2000101rt289h81ox',
@@ -145,7 +145,7 @@ describe('list', () => {
             description: 'bad video-game, it\'s broken',
             created_at: new Date(),
             updated_at: new Date(),
-            deleted_at: null
+            deleted_at: null,
           },
         ]
         const expectedProducts = [
@@ -156,8 +156,8 @@ describe('list', () => {
             description: 'cool bike',
             discount: {
               percentage: 10,
-              value_in_cents: 1000
-            }
+              value_in_cents: 1000,
+            },
           },
           {
             id: 'prd_cklk9ynb2000101rt289h81ox',
@@ -166,8 +166,8 @@ describe('list', () => {
             description: 'bad video-game, it\'s broken',
             discount: {
               percentage: 10,
-              value_in_cents: 500
-            }
+              value_in_cents: 500,
+            },
           },
         ]
 
@@ -175,10 +175,10 @@ describe('list', () => {
         const fakeRepository = {
           Product: {
             findAll: fakeFindAll,
-          }
+          },
         }
         const fakeDiscountClient = {
-          getDiscount: jest.fn().mockReturnValue(Promise.resolve({ percentage: 10.0 }))
+          getDiscount: jest.fn().mockReturnValue(Promise.resolve({ percentage: 10.0 })),
         }
 
         const fakeReq = { get: jest.fn().mockReturnValueOnce(undefined), query: {} }
@@ -187,9 +187,9 @@ describe('list', () => {
           status: statusCode => {
             expect(statusCode).toBe(200)
             return {
-              send: fakeSend
+              send: fakeSend,
             }
-          }
+          },
         }
 
         await productController.list(fakeRepository, fakeDiscountClient)(fakeReq, fakeRes)
@@ -200,7 +200,7 @@ describe('list', () => {
           limit: 10,
           offset: 0,
           order: [['id', 'DESC']],
-          raw: true
+          raw: true,
         }])
         expect(fakeReq.get.mock.calls.length).toEqual(1)
         expect(fakeReq.get.mock.calls[0]).toEqual(['X-USER-ID'])
@@ -217,7 +217,7 @@ describe('list', () => {
             description: 'cool bike',
             created_at: new Date(),
             updated_at: new Date(),
-            deleted_at: null
+            deleted_at: null,
           },
           {
             id: 'prd_cklk9ynb2000101rt289h81ox',
@@ -226,7 +226,7 @@ describe('list', () => {
             description: 'bad video-game, it\'s broken',
             created_at: new Date(),
             updated_at: new Date(),
-            deleted_at: null
+            deleted_at: null,
           },
         ]
         const expectedProducts = [
@@ -237,8 +237,8 @@ describe('list', () => {
             description: 'cool bike',
             discount: {
               percentage: 10,
-              value_in_cents: 1000
-            }
+              value_in_cents: 1000,
+            },
           },
           {
             id: 'prd_cklk9ynb2000101rt289h81ox',
@@ -247,8 +247,8 @@ describe('list', () => {
             description: 'bad video-game, it\'s broken',
             discount: {
               percentage: 8,
-              value_in_cents: 400
-            }
+              value_in_cents: 400,
+            },
           },
         ]
 
@@ -256,12 +256,12 @@ describe('list', () => {
         const fakeRepository = {
           Product: {
             findAll: fakeFindAll,
-          }
+          },
         }
         const fakeDiscountClient = {
           getDiscount: jest.fn()
             .mockReturnValueOnce(Promise.resolve({ percentage: 10.0 }))
-            .mockReturnValueOnce(Promise.resolve({ percentage: 8.0 }))
+            .mockReturnValueOnce(Promise.resolve({ percentage: 8.0 })),
         }
 
         const fakeReq = { get: jest.fn().mockReturnValueOnce(undefined), query: {} }
@@ -270,9 +270,9 @@ describe('list', () => {
           status: statusCode => {
             expect(statusCode).toBe(200)
             return {
-              send: fakeSend
+              send: fakeSend,
             }
-          }
+          },
         }
 
         await productController.list(fakeRepository, fakeDiscountClient)(fakeReq, fakeRes)
@@ -283,7 +283,7 @@ describe('list', () => {
           limit: 10,
           offset: 0,
           order: [['id', 'DESC']],
-          raw: true
+          raw: true,
         }])
         expect(fakeReq.get.mock.calls.length).toEqual(1)
         expect(fakeReq.get.mock.calls[0]).toEqual(['X-USER-ID'])
@@ -300,10 +300,10 @@ describe('list', () => {
       const fakeRepository = {
         Product: {
           findAll: fakeFindAll,
-        }
+        },
       }
       const fakeDiscountClient = {
-        getDiscount: jest.fn().mockReturnValue(Promise.resolve({ percentage: 10.0 }))
+        getDiscount: jest.fn().mockReturnValue(Promise.resolve({ percentage: 10.0 })),
       }
 
       const fakeReq = { get: jest.fn().mockReturnValueOnce(undefined), query: {} }
@@ -312,9 +312,9 @@ describe('list', () => {
         status: statusCode => {
           expect(statusCode).toBe(200)
           return {
-            send: fakeSend
+            send: fakeSend,
           }
-        }
+        },
       }
 
       await productController.list(fakeRepository, fakeDiscountClient)(fakeReq, fakeRes)
@@ -325,7 +325,7 @@ describe('list', () => {
         limit: 10,
         offset: 0,
         order: [['id', 'DESC']],
-        raw: true
+        raw: true,
       }])
       expect(fakeReq.get.mock.calls.length).toEqual(1)
       expect(fakeReq.get.mock.calls[0]).toEqual(['X-USER-ID'])

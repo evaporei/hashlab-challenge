@@ -8,5 +8,5 @@ const methodNotAllowed = (req, res) =>
 
 module.exports = {
   resourceNotFound,
-  methodNotAllowed
+  methodNotAllowed,
 }

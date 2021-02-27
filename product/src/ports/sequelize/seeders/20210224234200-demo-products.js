@@ -166,5 +166,5 @@ module.exports = {
       },
     ]),
   down: queryInterface =>
-    queryInterface.bulkDelete(tableName, null, {})
+    queryInterface.bulkDelete(tableName, null, {}),
 }

@@ -12,8 +12,8 @@ const defaults = {
     underscoredAll: true,
     createdAt: 'created_at',
     updatedAt: 'updated_at',
-    deletedAt: 'deleted_at'
-  }
+    deletedAt: 'deleted_at',
+  },
 }
 
 const create = (models) => {
@@ -21,7 +21,7 @@ const create = (models) => {
 
   const createModelInstance = (model) => ({
     model,
-    instance: model.create(sequelize, DataTypes)
+    instance: model.create(sequelize, DataTypes),
   })
 
   const associateModels = ({ model, instance }) => {
@@ -63,5 +63,5 @@ const connect = (models) =>
 module.exports = {
   connect,
   create,
-  ensureIsConnected
+  ensureIsConnected,
 }

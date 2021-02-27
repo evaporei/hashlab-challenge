@@ -21,8 +21,8 @@ module.exports = {
         date_of_birth: twoDaysAgo,
         created_at: today,
         updated_at: today,
-      }
+      },
     ]),
   down: queryInterface =>
-    queryInterface.bulkDelete(tableName, null, {})
+    queryInterface.bulkDelete(tableName, null, {}),
 }

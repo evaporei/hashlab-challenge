@@ -10,5 +10,5 @@ const connect = async (models) => {
 }
 
 module.exports = {
-  connect
+  connect,
 }

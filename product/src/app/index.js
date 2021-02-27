@@ -15,5 +15,5 @@ const createApp = (repository, discountClient) => {
 }
 
 module.exports = {
-  createApp
+  createApp,
 }

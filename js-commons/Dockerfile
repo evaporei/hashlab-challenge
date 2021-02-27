@@ -1,4 +1,4 @@
-FROM node:alpine AS js-commons
+FROM node AS js-commons
 COPY ./proto /proto
 WORKDIR /js-commons
 COPY ./js-commons /js-commons

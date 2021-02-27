@@ -6,9 +6,9 @@ const productPresenter = inputProduct => ({
   discount: inputProduct.discount
     ? {
       percentage: inputProduct.discount.percentage,
-      value_in_cents: inputProduct.discount.value_in_cents
+      value_in_cents: inputProduct.discount.value_in_cents,
     }
-    : undefined
+    : undefined,
 })
 
 module.exports = productPresenter

@@ -47,6 +47,10 @@ services:
     extends: user-service-base
     entrypoint: npm test
 
+  user-service-lint:
+    extends: user-service-base
+    entrypoint: npm run lint
+
   js-commons-base:
     build:
       context: .
@@ -59,6 +63,10 @@ services:
   js-commons-test:
     extends: js-commons-base
     entrypoint: npm test
+
+  js-commons-lint:
+    extends: js-commons-base
+    entrypoint: npm run lint
 
   user-migrate-up:
     extends: js-commons-base
@@ -124,6 +132,10 @@ services:
   product-service-test:
     extends: product-service-base
     entrypoint: npm test
+
+  product-service-lint:
+    extends: product-service-base
+    entrypoint: npm run lint
 
   product-migrate-up:
     extends: js-commons-base

@@ -1,12 +1,12 @@
 const fromMessage = message => ({
-  errors: [{ message }]
+  errors: [{ message }],
 })
 
 const fromList = list => ({
-  errors: list
+  errors: list,
 })
 
 module.exports = {
   fromMessage,
-  fromList
+  fromList,
 }

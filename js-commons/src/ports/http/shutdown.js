@@ -4,14 +4,14 @@ const shutdownServer = (server, exitCode) =>
 const signals = {
   SIGHUP: 1,
   SIGINT: 2,
-  SIGTERM: 15
+  SIGTERM: 15,
 }
 
 const setupGracefulShutdown = (server) => {
   for (const signalName in signals) {
     const signalValue = signals[signalName]
 
-    process.on(signalName, (signal) =>
+    process.on(signalName, () =>
       shutdownServer(server, signalValue))
   }
 }

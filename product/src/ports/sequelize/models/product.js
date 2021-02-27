@@ -3,25 +3,25 @@ const create = (sequelize, { INTEGER, STRING }) =>
     id: {
       type: STRING,
       primaryKey: true,
-      allowNull: false
+      allowNull: false,
     },
     price: {
       type: INTEGER,
       allowNull: false,
-      required: true
+      required: true,
     },
     title: {
       type: STRING,
       allowNull: false,
-      required: true
+      required: true,
     },
     description: {
       type: STRING,
       allowNull: false,
-      required: true
-    }
+      required: true,
+    },
   })
 
 module.exports = {
-  create
+  create,
 }

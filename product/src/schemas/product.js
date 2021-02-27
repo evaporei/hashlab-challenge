@@ -4,9 +4,9 @@ const pagination = require('./pagination')
 const list = pagination.keys({
   price: Joi.number().integer(),
   title: Joi.string(),
-  description: Joi.string()
+  description: Joi.string(),
 })
 
 module.exports = {
-  list: Joi.object({ query: list }).unknown(true)
+  list: Joi.object({ query: list }).unknown(true),
 }

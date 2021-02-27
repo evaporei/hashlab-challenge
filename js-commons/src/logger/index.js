@@ -9,33 +9,33 @@ const { logger, httpLogger } = escriba({
   httpConf: {
     propsToLog: {
       request: ['id', 'url', 'body', 'method', 'connection.remoteAddress', 'query'],
-      response: ['id', 'url', 'body', 'statusCode', 'latency', '_headers']
+      response: ['id', 'url', 'body', 'statusCode', 'latency', '_headers'],
     },
     skipRules: [
       {
         route: /\/health_check/,
         method: /.*/,
-        onlyBody: false
+        onlyBody: false,
       },
       {
         route: /.*/,
         method: /GET/,
-        onlyBody: true
+        onlyBody: true,
       },
       {
         route: /.*/,
         method: /OPTIONS/,
-        onlyBody: false
-      }
+        onlyBody: false,
+      },
     ],
     propMaxLength: {
       body: 2048,
-      url: 1024
-    }
-  }
+      url: 1024,
+    },
+  },
 })
 
 module.exports = {
   logger,
-  httpLogger
+  httpLogger,
 }

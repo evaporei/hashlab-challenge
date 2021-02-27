@@ -1,4 +1,3 @@
-const grpc = require('@grpc/grpc-js')
 const { loadPackageDefinition, createCredentials } = require('js-commons/src/ports/grpc')
 
 const { discount } = loadPackageDefinition('../../../../proto/discount.proto')
@@ -15,5 +14,5 @@ const getDiscount = (request) => new Promise((resolve, reject) =>
   }))
 
 module.exports = {
-  getDiscount
+  getDiscount,
 }

@@ -10,5 +10,5 @@ const startHttpServer = app => {
 }
 
 module.exports = {
-  startHttpServer
+  startHttpServer,
 }

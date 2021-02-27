@@ -8,13 +8,13 @@ test('userPresenter', () => {
     date_of_birth: '2021-02-24',
     created_at: '2021-02-24T18:22:05.175Z',
     updated_at: '2021-02-24T18:22:05.175Z',
-    deleted_at: null
+    deleted_at: null,
   }
 
   expect(userPresenter(inputUser)).toEqual({
     id: inputUser.id,
     first_name: inputUser.first_name,
     last_name: inputUser.last_name,
-    date_of_birth: inputUser.date_of_birth
+    date_of_birth: inputUser.date_of_birth,
   })
 })

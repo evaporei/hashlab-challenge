@@ -10,13 +10,13 @@ test('mapJoiError', () => {
         message: 'body.x is required',
         path: ['body', 'x'],
         type: 'any.required',
-        context: { /* ... */ }
-      }
-    ]
+        context: { /* ... */ },
+      },
+    ],
   }
   expect(mapJoiError(fakeJoiError.details[0])).toEqual({
     message: 'body.x is required',
-    path: ['body', 'x']
+    path: ['body', 'x'],
   })
 })
 
@@ -24,7 +24,7 @@ describe('validateSchema', () => {
   test('when an error happens', () => {
     const schema = Joi.object({
       a: Joi.string().required(),
-      b: Joi.number()
+      b: Joi.number(),
     })
     const invalidData = {}
 
@@ -35,7 +35,7 @@ describe('validateSchema', () => {
       expect(error.message).toEqual('"a" is required')
       expect(error.details).toEqual([{
         message: '"a" is required',
-        path: ['a']
+        path: ['a'],
       }])
       expect(error).toBeInstanceOf(Joi.ValidationError)
     }
@@ -44,10 +44,10 @@ describe('validateSchema', () => {
   test('when an error does NOT happen', () => {
     const schema = Joi.object({
       a: Joi.string().required(),
-      b: Joi.number()
+      b: Joi.number(),
     })
     const validData = {
-      a: 'bar'
+      a: 'bar',
     }
 
     expect(validateSchema(schema, validData)).toEqual(validData)

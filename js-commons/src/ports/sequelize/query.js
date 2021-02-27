@@ -5,7 +5,7 @@ const isEmpty = obj =>
 
 const filterQueriableFields = (reqQuery, queryableFields) => {
   const filteredList = Object.entries(reqQuery)
-    .filter(([key, value]) => queryableFields.includes(key))
+    .filter(([key]) => queryableFields.includes(key))
 
   return Object.fromEntries(filteredList)
 }
@@ -30,8 +30,8 @@ const buildWhere = (query, queryableFields) => {
       return {
         ...where,
         [key]: {
-          [operator]: includedValue
-        }
+          [operator]: includedValue,
+        },
       }
     }, {})
 
@@ -49,16 +49,16 @@ const buildPagination = options => {
 
   return {
     limit,
-    offset
+    offset,
   }
 }
 
 const defaultOrdering = {
-  order: [['id', 'DESC']]
+  order: [['id', 'DESC']],
 }
 
 module.exports = {
   buildPagination,
   buildWhere,
-  defaultOrdering
+  defaultOrdering,
 }

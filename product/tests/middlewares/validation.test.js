@@ -4,8 +4,8 @@ const validationMiddleware = require('../../src/middlewares/validation')
 const requestSchema = Joi.object({
   body: Joi.object({
     a: Joi.string().required(),
-    b: Joi.number()
-  })
+    b: Joi.number(),
+  }),
 }).unknown(true)
 
 describe('validationMiddleware', () => {
@@ -15,7 +15,7 @@ describe('validationMiddleware', () => {
     const fakeBody = { a: 'john', b: 123 }
     const fakeReq = { body: fakeBody }
     const fakeRes = {
-      status: jest.fn()
+      status: jest.fn(),
     }
 
     validationMiddleware(requestSchema)(fakeReq, fakeRes, fakeNext)
@@ -34,9 +34,9 @@ describe('validationMiddleware', () => {
       status: statusCode => {
         expect(statusCode).toBe(400)
         return {
-          send: fakeSend
+          send: fakeSend,
         }
-      }
+      },
     }
 
     validationMiddleware(requestSchema)(fakeReq, fakeRes, fakeNext)
@@ -46,13 +46,13 @@ describe('validationMiddleware', () => {
       errors: [
         {
           message: '"body.a" is required',
-          path: ['body', 'a']
+          path: ['body', 'a'],
         },
         {
           message: '"body.b" must be a number',
-          path: ['body', 'b']
-        }
-      ]
+          path: ['body', 'b'],
+        },
+      ],
     })
   })
 })

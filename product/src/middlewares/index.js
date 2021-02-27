@@ -13,5 +13,5 @@ module.exports = {
   setupDefault,
   globalErrorHandler,
   catchAsyncError,
-  validation
+  validation,
 }

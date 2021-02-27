@@ -30,5 +30,5 @@ module.exports = {
   createGrpcServer,
   startGrpcServer,
   loadPackageDefinition,
-  createCredentials
+  createCredentials,
 }

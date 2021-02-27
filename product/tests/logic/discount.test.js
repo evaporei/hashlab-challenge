@@ -23,7 +23,7 @@ describe('calculateCentsValue', () => {
 describe('calculateDiscount', () => {
   test('when discount client succeeds', async () => {
     const fakeDiscountClient = {
-      getDiscount: jest.fn().mockReturnValueOnce(Promise.resolve({ percentage: 9.5 }))
+      getDiscount: jest.fn().mockReturnValueOnce(Promise.resolve({ percentage: 9.5 })),
     }
     const userId = 'usr_kjasdfiojaosidfjoaisjdfl'
     const product = {
@@ -33,7 +33,7 @@ describe('calculateDiscount', () => {
       description: 'cool bike',
       created_at: new Date(),
       updated_at: new Date(),
-      deleted_at: null
+      deleted_at: null,
     }
 
     const productWithDiscount = await calculateDiscount(fakeDiscountClient, userId)(product)
@@ -47,14 +47,14 @@ describe('calculateDiscount', () => {
       ...product,
       discount: {
         percentage: 9.5,
-        value_in_cents: 950
-      }
+        value_in_cents: 950,
+      },
     })
   })
 
   test('when discount client fails', async () => {
     const fakeDiscountClient = {
-      getDiscount: jest.fn().mockReturnValueOnce(Promise.reject(null))
+      getDiscount: jest.fn().mockReturnValueOnce(Promise.reject(null)),
     }
     const userId = 'usr_kjasdfiojaosidfjoaisjdfl'
     const product = {
@@ -64,7 +64,7 @@ describe('calculateDiscount', () => {
       description: 'cool bike',
       created_at: new Date(),
       updated_at: new Date(),
-      deleted_at: null
+      deleted_at: null,
     }
 
     const productWithDiscount = await calculateDiscount(fakeDiscountClient, userId)(product)
@@ -78,8 +78,8 @@ describe('calculateDiscount', () => {
       ...product,
       discount: {
         percentage: 0.0,
-        value_in_cents: 0
-      }
+        value_in_cents: 0,
+      },
     })
   })
 })

@@ -5,19 +5,20 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/bin/index.js",
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint ."
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@grpc/grpc-js": "^1.2.8",
     "@hapi/joi": "17.1.1",
     "cors": "2.8.5",
     "express": "4.17.1",
     "js-commons": "file:../js-commons"
   },
   "devDependencies": {
+    "eslint": "^7.20.0",
     "jest": "26.6.3"
   }
 }

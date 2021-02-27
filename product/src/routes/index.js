@@ -17,5 +17,5 @@ const setupRoutes = (app, repository, discountClient) => {
 }
 
 module.exports = {
-  setupRoutes
+  setupRoutes,
 }

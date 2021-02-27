@@ -12,8 +12,8 @@ describe('productPresenter', () => {
       deleted_at: null,
       discount: {
         percentage: 7.8,
-        value_in_cents: 1580
-      }
+        value_in_cents: 1580,
+      },
     }
 
     expect(productPresenter(inputProduct)).toEqual({
@@ -23,8 +23,8 @@ describe('productPresenter', () => {
       description: inputProduct.description,
       discount: {
         percentage: inputProduct.discount.percentage,
-        value_in_cents: inputProduct.discount.value_in_cents
-      }
+        value_in_cents: inputProduct.discount.value_in_cents,
+      },
     })
   })
 
@@ -36,14 +36,14 @@ describe('productPresenter', () => {
       description: 'it\'s for sleeping!',
       created_at: new Date(),
       updated_at: new Date(),
-      deleted_at: null
+      deleted_at: null,
     }
 
     expect(productPresenter(inputProduct)).toEqual({
       id: inputProduct.id,
       price: inputProduct.price,
       title: inputProduct.title,
-      description: inputProduct.description
+      description: inputProduct.description,
     })
   })
 })
