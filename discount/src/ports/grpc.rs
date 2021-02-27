@@ -1,4 +1,4 @@
-use crate::grpc::{DiscountService, DiscountServiceServer};
+use crate::service::{DiscountService, DiscountServiceServer};
 use std::env;
 use tonic::transport::Server;
 

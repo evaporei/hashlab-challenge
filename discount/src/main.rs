@@ -1,5 +1,5 @@
-use discount::grpc::{DiscountGrpc, DiscountServiceServer};
 use discount::ports::grpc::start_grpc_server;
+use discount::service::{DiscountGrpc, DiscountServiceServer};
 use dotenv::dotenv;
 
 #[tokio::main]
