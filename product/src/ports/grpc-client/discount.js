@@ -2,7 +2,7 @@ const { loadPackageDefinition, createCredentials } = require('js-commons/src/por
 
 const { discount } = loadPackageDefinition('../../../../proto/discount.proto')
 
-const client = new discount.DiscountService('discount-service:4000', createCredentials())
+const client = new discount.DiscountService(process.env.DISCOUNT_SERVICE_HOST, createCredentials())
 
 const getDiscount = (request) => new Promise((resolve, reject) =>
   client.getDiscount(request, (err, response) => {
