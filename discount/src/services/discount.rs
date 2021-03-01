@@ -1,4 +1,4 @@
-use crate::ports::tonic::{Discount, DiscountRequest, DiscountResponse, DiscountService};
+use crate::ports::grpc::types::{Discount, DiscountRequest, DiscountResponse, DiscountService};
 use crate::rules::black_friday::BlackFriday;
 use crate::rules::user_birthday::UserBirthday;
 use crate::rules::Rule;

@@ -1,4 +1,4 @@
-use crate::ports::tonic::{Empty, HealthService, ServingStatus, StatusResponse};
+use crate::ports::grpc::types::{Empty, HealthService, ServingStatus, StatusResponse};
 use tonic::{Request, Response, Status};
 
 #[derive(Debug, Default)]

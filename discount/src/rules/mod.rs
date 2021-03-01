@@ -1,5 +1,5 @@
 use crate::math::clamp;
-use crate::ports::tonic::{Discount, DiscountRequest};
+use crate::ports::grpc::types::{Discount, DiscountRequest};
 use async_trait::async_trait;
 use futures::stream::{self, StreamExt};
 

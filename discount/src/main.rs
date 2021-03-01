@@ -1,5 +1,5 @@
-use discount::ports::grpc::start_grpc_server;
-use discount::ports::tonic::{DiscountServiceServer, HealthServiceServer};
+use discount::ports::grpc;
+use discount::ports::grpc::types::{DiscountServiceServer, HealthServiceServer};
 use discount::services::discount::DiscountGrpc;
 use discount::services::health_check::HealthCheckGrpc;
 use dotenv::dotenv;
@@ -11,7 +11,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let discount_grpc = DiscountGrpc::default();
     let health_check_grpc = HealthCheckGrpc::default();
 
-    start_grpc_server(
+    grpc::server::start(
         HealthServiceServer::new(health_check_grpc),
         DiscountServiceServer::new(discount_grpc),
     )

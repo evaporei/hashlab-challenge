@@ -1,4 +1,6 @@
-use crate::ports::tonic::{DiscountRequest, User, UserRequest, UserResponse, UserServiceClient};
+use crate::ports::grpc::types::{
+    DiscountRequest, User, UserRequest, UserResponse, UserServiceClient,
+};
 use crate::rules::Rule;
 use async_trait::async_trait;
 use chrono::{Date, Datelike, Local, NaiveDate};
