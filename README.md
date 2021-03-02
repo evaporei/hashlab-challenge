@@ -135,7 +135,7 @@ grpcurl -plaintext -import-path proto -proto user.proto -d '{"user_id": "usr_ckl
 ```
 
 > Response
-```shell
+```json
 {
   "user": {
     "id": "usr_ckljj7jy900001iofhtrehz8u",
@@ -154,7 +154,7 @@ grpcurl -plaintext -import-path proto -proto user.proto -d '{"user_id": "usr_ckl
 ```
 
 > Response
-```shell
+```json
 {
   "user": {
     "id": "usr_ckljj7jye00011iof2oh53ccr",
@@ -175,7 +175,7 @@ grpcurl -plaintext -import-path proto -proto discount.proto -d '{"user_id": "usr
 ```
 
 > Response
-```shell
+```json
 {
   "discount": {
     "percentage": 5
@@ -191,7 +191,7 @@ grpcurl -plaintext -import-path proto -proto discount.proto -d '{"user_id": "usr
 ```
 
 > Response
-```shell
+```json
 {
   "discount": {
 
@@ -199,4 +199,230 @@ grpcurl -plaintext -import-path proto -proto discount.proto -d '{"user_id": "usr
 }
 ```
 
-### Get Products (with or without discount by user)
+### Get Products
+
+When the discount service is up and it's the user's birthday:
+
+> Request
+```shell
+curl --location --request GET 'localhost:3000/product' --header 'x-user-id: usr_ckljj7jy900001iofhtrehz8u'
+```
+
+> Response
+```json
+[
+    {
+        "id": "prd_cklka2jwt000901mz1i936zru",
+        "price": 303030,
+        "title": "The other half of the Sandwich",
+        "description": "it wasn't eaten, just badly cut",
+        "discount": {
+            "percentage": 5,
+            "value_in_cents": 15151
+        }
+    },
+    {
+        "id": "prd_cklka2jwt000801mz9c8pg2a9",
+        "price": 303030,
+        "title": "Half a Sandwich",
+        "description": "someone eat half of it",
+        "discount": {
+            "percentage": 5,
+            "value_in_cents": 15151
+        }
+    },
+    {
+        "id": "prd_cklka2jwt000701mze5pi587l",
+        "price": 40033,
+        "title": "Skate",
+        "description": "you could be Tony Hawk, in your dreams",
+        "discount": {
+            "percentage": 5,
+            "value_in_cents": 2001
+        }
+    },
+    {
+        "id": "prd_cklka2jwt000601mz2em49jkp",
+        "price": 1500,
+        "title": "Pokémon Card Pack",
+        "description": "maybe there's a blastoise in this pack, who knows?",
+        "discount": {
+            "percentage": 5,
+            "value_in_cents": 75
+        }
+    },
+    {
+        "id": "prd_cklka2jwt000501mz9laf0l0j",
+        "price": 750,
+        "title": "Mug",
+        "description": "fill it with coffee, chocolate or tea",
+        "discount": {
+            "percentage": 5,
+            "value_in_cents": 37
+        }
+    },
+    {
+        "id": "prd_cklka2jwt000401mzbfxbcdlw",
+        "price": 13450,
+        "title": "TV",
+        "description": "you can watch BBB in it, or play some games I guess",
+        "discount": {
+            "percentage": 5,
+            "value_in_cents": 672
+        }
+    },
+    {
+        "id": "prd_cklka2jwt000301mzcui7747a",
+        "price": 8450,
+        "title": "Green Card",
+        "description": "it's actually a marriage contract",
+        "discount": {
+            "percentage": 5,
+            "value_in_cents": 422
+        }
+    },
+    {
+        "id": "prd_cklka2jwt000201mz7dkh574s",
+        "price": 1050,
+        "title": "Determination",
+        "description": "it's actually a flower, it seems angry for some reason",
+        "discount": {
+            "percentage": 5,
+            "value_in_cents": 52
+        }
+    },
+    {
+        "id": "prd_cklka2jwt000101mza53827hh",
+        "price": 1050,
+        "title": "Cake",
+        "description": "there's no cake",
+        "discount": {
+            "percentage": 5,
+            "value_in_cents": 52
+        }
+    },
+    {
+        "id": "prd_cklka2jws000001mz1xbx8rhb",
+        "price": 500,
+        "title": "Cookies",
+        "description": "they have chocolate",
+        "discount": {
+            "percentage": 5,
+            "value_in_cents": 25
+        }
+    }
+]
+```
+
+When the discount service is down, to simulate this, you can run `docker-compose stop discount-service`:
+
+> Request
+```shell
+curl --location --request GET 'localhost:3000/product' --header 'x-user-id: usr_ckljj7jy900001iofhtrehz8u'
+```
+
+> Response
+```json
+[
+    {
+        "id": "prd_cklka2jwt000901mz1i936zru",
+        "price": 303030,
+        "title": "The other half of the Sandwich",
+        "description": "it wasn't eaten, just badly cut",
+        "discount": {
+            "percentage": 0,
+            "value_in_cents": 0
+        }
+    },
+    {
+        "id": "prd_cklka2jwt000801mz9c8pg2a9",
+        "price": 303030,
+        "title": "Half a Sandwich",
+        "description": "someone eat half of it",
+        "discount": {
+            "percentage": 0,
+            "value_in_cents": 0
+        }
+    },
+    {
+        "id": "prd_cklka2jwt000701mze5pi587l",
+        "price": 40033,
+        "title": "Skate",
+        "description": "you could be Tony Hawk, in your dreams",
+        "discount": {
+            "percentage": 0,
+            "value_in_cents": 0
+        }
+    },
+    {
+        "id": "prd_cklka2jwt000601mz2em49jkp",
+        "price": 1500,
+        "title": "Pokémon Card Pack",
+        "description": "maybe there's a blastoise in this pack, who knows?",
+        "discount": {
+            "percentage": 0,
+            "value_in_cents": 0
+        }
+    },
+    {
+        "id": "prd_cklka2jwt000501mz9laf0l0j",
+        "price": 750,
+        "title": "Mug",
+        "description": "fill it with coffee, chocolate or tea",
+        "discount": {
+            "percentage": 0,
+            "value_in_cents": 0
+        }
+    },
+    {
+        "id": "prd_cklka2jwt000401mzbfxbcdlw",
+        "price": 13450,
+        "title": "TV",
+        "description": "you can watch BBB in it, or play some games I guess",
+        "discount": {
+            "percentage": 0,
+            "value_in_cents": 0
+        }
+    },
+    {
+        "id": "prd_cklka2jwt000301mzcui7747a",
+        "price": 8450,
+        "title": "Green Card",
+        "description": "it's actually a marriage contract",
+        "discount": {
+            "percentage": 0,
+            "value_in_cents": 0
+        }
+    },
+    {
+        "id": "prd_cklka2jwt000201mz7dkh574s",
+        "price": 1050,
+        "title": "Determination",
+        "description": "it's actually a flower, it seems angry for some reason",
+        "discount": {
+            "percentage": 0,
+            "value_in_cents": 0
+        }
+    },
+    {
+        "id": "prd_cklka2jwt000101mza53827hh",
+        "price": 1050,
+        "title": "Cake",
+        "description": "there's no cake",
+        "discount": {
+            "percentage": 0,
+            "value_in_cents": 0
+        }
+    },
+    {
+        "id": "prd_cklka2jws000001mz1xbx8rhb",
+        "price": 500,
+        "title": "Cookies",
+        "description": "they have chocolate",
+        "discount": {
+            "percentage": 0,
+            "value_in_cents": 0
+        }
+    }
+]
+```
