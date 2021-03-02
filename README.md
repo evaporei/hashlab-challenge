@@ -31,9 +31,31 @@ Since the projects use `Docker`/`docker-compose` we'll need to build all images,
 ./scripts/build.sh
 ```
 
-## Tests
+### Migrate
 
-Just run:
+Migrates for the PostgreSQL databases of the `user` and `product` services.
+
+```shell
+./scripts/migrate-up.sh
+```
+
+### Seed
+
+Seeds examples for the PostgreSQL databases of the `user` and `product` services.
+
+```shell
+./scripts/seed-generate.sh
+```
+
+## Running
+
+Runs all services in background.
+
+```shell
+./scripts/run.sh
+```
+
+## Tests
 
 ```shell
 ./scripts/test.sh
@@ -41,7 +63,7 @@ Just run:
 
 ## Lint
 
-Just run:
+Uses ESLint on JS projects and Cargo formatter in Rust.
 
 ```shell
 ./scripts/lint.sh

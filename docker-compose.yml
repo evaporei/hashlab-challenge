@@ -23,6 +23,14 @@ services:
       timeout: 5s
       retries: 5
 
+  js-commons:
+    build:
+      context: .
+      dockerfile: ./js-commons/Dockerfile
+    volumes:
+      - ./js-commons:/js-commons
+      - /js-commons/node_modules
+
   user-service:
     build:
       context: .
@@ -40,54 +48,6 @@ services:
         condition: service_healthy
     links:
       - user-postgres
-
-  js-commons:
-    build:
-      context: .
-      dockerfile: ./js-commons/Dockerfile
-    volumes:
-      - ./js-commons:/js-commons
-      - /js-commons/node_modules
-
-  user-migrate-up:
-    extends: js-commons
-    env_file: ./user/.env
-    entrypoint: node_modules/.bin/sequelize db:migrate --config src/config/sequelize.js --migrations-path /user/src/ports/sequelize/migrations/
-    volumes:
-      - ./user:/user
-    depends_on:
-      user-postgres:
-        condition: service_healthy
-
-  user-migrate-down:
-    extends: js-commons
-    env_file: ./user/.env
-    entrypoint: node_modules/.bin/sequelize db:migrate:undo --config src/config/sequelize.js --migrations-path /user/src/ports/sequelize/migrations/
-    volumes:
-      - ./user:/user
-    depends_on:
-      user-postgres:
-        condition: service_healthy
-
-  user-seed-generate:
-    extends: js-commons
-    env_file: ./user/.env
-    entrypoint: node_modules/.bin/sequelize db:seed:all --config src/config/sequelize.js --seeders-path /user/src/ports/sequelize/seeders/
-    volumes:
-      - ./user:/user
-    depends_on:
-      user-postgres:
-        condition: service_healthy
-
-  user-seed-destroy:
-    extends: js-commons
-    env_file: ./user/.env
-    entrypoint: node_modules/.bin/sequelize db:seed:undo --config src/config/sequelize.js --seeders-path /user/src/ports/sequelize/seeders/
-    volumes:
-      - ./user:/user
-    depends_on:
-      user-postgres:
-        condition: service_healthy
 
   product-service:
     build:
@@ -108,46 +68,6 @@ services:
       - product-postgres
       - discount-service
 
-  product-migrate-up:
-    extends: js-commons
-    env_file: ./product/.env
-    entrypoint: node_modules/.bin/sequelize db:migrate --config src/config/sequelize.js --migrations-path /product/src/ports/sequelize/migrations/
-    volumes:
-      - ./product:/product
-    depends_on:
-      product-postgres:
-        condition: service_healthy
-
-  product-migrate-down:
-    extends: js-commons
-    env_file: ./product/.env
-    entrypoint: node_modules/.bin/sequelize db:migrate:undo --config src/config/sequelize.js --migrations-path /product/src/ports/sequelize/migrations/
-    volumes:
-      - ./product:/product
-    depends_on:
-      product-postgres:
-        condition: service_healthy
-
-  product-seed-generate:
-    extends: js-commons
-    env_file: ./product/.env
-    entrypoint: node_modules/.bin/sequelize db:seed:all --config src/config/sequelize.js --seeders-path /product/src/ports/sequelize/seeders/
-    volumes:
-      - ./product:/product
-    depends_on:
-      product-postgres:
-        condition: service_healthy
-
-  product-seed-destroy:
-    extends: js-commons
-    env_file: ./product/.env
-    entrypoint: node_modules/.bin/sequelize db:seed:undo --config src/config/sequelize.js --seeders-path /product/src/ports/sequelize/seeders/
-    volumes:
-      - ./product:/product
-    depends_on:
-      product-postgres:
-        condition: service_healthy
-
   discount-service:
     build:
       context: .
@@ -159,3 +79,21 @@ services:
       - "4000:4000"
     links:
       - user-service
+
+  user-migrate-and-seed:
+    extends: js-commons
+    env_file: ./user/.env
+    volumes:
+      - ./user:/user
+    depends_on:
+      user-postgres:
+        condition: service_healthy
+
+  product-migrate-and-seed:
+    extends: js-commons
+    env_file: ./product/.env
+    volumes:
+      - ./product:/product
+    depends_on:
+      product-postgres:
+        condition: service_healthy
