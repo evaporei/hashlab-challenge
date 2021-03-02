@@ -15,8 +15,6 @@ impl DiscountService for DiscountGrpc {
         &self,
         request: Request<DiscountRequest>,
     ) -> Result<Response<DiscountResponse>, Status> {
-        println!("Request: {:?}", request);
-
         let discount = Discount::apply(&RULES, request.into_inner()).await;
 
         let response = DiscountResponse {
