@@ -21,6 +21,21 @@ Since the `discount` service needed to access an users table, and I don't feel l
 
 Since the challenge only asks for two services and two languages, I've created the `user` service in `JavaScript` as well to ease not having to review another language. This also made me create another project with common code between the `JavaScript` applications, called `js-commons`.
 
+Below there's an oversimplified sequence diagram of how the services connect. It doesn't include the `js-commons` library, neither the databases. Also not all requests shown are always done, there are some optimizations on this matter explained with more detail in each service.
+
+![example-sequence-diagram](https://user-images.githubusercontent.com/15306309/109600913-c297af00-7afc-11eb-8538-dcb52905f00f.png)
+
+<!--- mermaid.js diagram: --->
+<!--- obs: some slashes were put to escape the Github Markdown comments--->
+
+<!--- sequenceDiagram --->
+<!---     client->>+product: GET /product --->
+<!---     product->>+discount: rpc GetDiscount --->
+<!---     discount->>-user: rpc GetUser --->
+<!---     user--\>>+discount: user --->
+<!---     discount--\>>+product: percentage --->
+<!---     product--\>>-client: products w/ discount --->
+
 ```
 hashlab-challenge
 │   ...
