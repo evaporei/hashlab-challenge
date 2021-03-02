@@ -131,7 +131,7 @@ Get an user which the birthday is today:
 
 > Request
 ```shell
-grpcurl -plaintext -import-path ../hashlab-challenge/proto -proto user.proto -d '{"user_id": "usr_ckljj7jy900001iofhtrehz8u"}' [::]:50051 user.UserService/GetUser
+grpcurl -plaintext -import-path proto -proto user.proto -d '{"user_id": "usr_ckljj7jy900001iofhtrehz8u"}' [::]:50051 user.UserService/GetUser
 ```
 
 > Response
@@ -150,7 +150,7 @@ Get an user that isn't their birthday:
 
 > Request
 ```shell
-grpcurl -plaintext -import-path ../hashlab-challenge/proto -proto user.proto -d '{"user_id": "usr_ckljj7jye00011iof2oh53ccr"}' [::]:50051 user.UserService/GetUser
+grpcurl -plaintext -import-path proto -proto user.proto -d '{"user_id": "usr_ckljj7jye00011iof2oh53ccr"}' [::]:50051 user.UserService/GetUser
 ```
 
 > Response
@@ -166,5 +166,37 @@ grpcurl -plaintext -import-path ../hashlab-challenge/proto -proto user.proto -d 
 ```
 
 ### Calculate Discount
+
+Calculate discount when it's the user birthday.
+
+> Request
+```shell
+grpcurl -plaintext -import-path proto -proto discount.proto -d '{"user_id": "usr_ckljj7jy900001iofhtrehz8u", "product_id": ""}' [::]:4000 discount.DiscountService/GetDiscount
+```
+
+> Response
+```shell
+{
+  "discount": {
+    "percentage": 5
+  }
+}
+```
+
+Calculate discount when it's not the user birthday.
+
+> Request
+```shell
+grpcurl -plaintext -import-path proto -proto discount.proto -d '{"user_id": "usr_ckljj7jye00011iof2oh53ccr", "product_id": ""}' [::]:4000 discount.DiscountService/GetDiscount
+```
+
+> Response
+```shell
+{
+  "discount": {
+
+  }
+}
+```
 
 ### Get Products (with or without discount by user)
