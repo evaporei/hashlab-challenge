@@ -23,53 +23,34 @@ services:
       timeout: 5s
       retries: 5
 
-  user-service-base:
+  user-service:
     build:
       context: .
       dockerfile: ./user/Dockerfile
-      target: user-service
-    volumes:
-      - ./user:/user-service
-      - /user/node_modules
-
-  user-service:
-    extends: user-service-base
     env_file: ./user/.env
     ports:
       - "50051:50051"
+    volumes:
+      - ./js-commons:/js-commons
+      - /js-commons/node_modules
+      - ./user:/user-service
+      - /user-service/node_modules
     depends_on:
       user-postgres:
         condition: service_healthy
     links:
       - user-postgres
 
-  user-service-test:
-    extends: user-service-base
-    entrypoint: npm test
-
-  user-service-lint:
-    extends: user-service-base
-    entrypoint: npm run lint
-
-  js-commons-base:
+  js-commons:
     build:
       context: .
       dockerfile: ./js-commons/Dockerfile
-      target: js-commons
     volumes:
       - ./js-commons:/js-commons
       - /js-commons/node_modules
 
-  js-commons-test:
-    extends: js-commons-base
-    entrypoint: npm test
-
-  js-commons-lint:
-    extends: js-commons-base
-    entrypoint: npm run lint
-
   user-migrate-up:
-    extends: js-commons-base
+    extends: js-commons
     env_file: ./user/.env
     entrypoint: node_modules/.bin/sequelize db:migrate --config src/config/sequelize.js --migrations-path /user/src/ports/sequelize/migrations/
     volumes:
@@ -79,7 +60,7 @@ services:
         condition: service_healthy
 
   user-migrate-down:
-    extends: js-commons-base
+    extends: js-commons
     env_file: ./user/.env
     entrypoint: node_modules/.bin/sequelize db:migrate:undo --config src/config/sequelize.js --migrations-path /user/src/ports/sequelize/migrations/
     volumes:
@@ -89,7 +70,7 @@ services:
         condition: service_healthy
 
   user-seed-generate:
-    extends: js-commons-base
+    extends: js-commons
     env_file: ./user/.env
     entrypoint: node_modules/.bin/sequelize db:seed:all --config src/config/sequelize.js --seeders-path /user/src/ports/sequelize/seeders/
     volumes:
@@ -99,7 +80,7 @@ services:
         condition: service_healthy
 
   user-seed-destroy:
-    extends: js-commons-base
+    extends: js-commons
     env_file: ./user/.env
     entrypoint: node_modules/.bin/sequelize db:seed:undo --config src/config/sequelize.js --seeders-path /user/src/ports/sequelize/seeders/
     volumes:
@@ -108,20 +89,18 @@ services:
       user-postgres:
         condition: service_healthy
 
-  product-service-base:
+  product-service:
     build:
       context: .
       dockerfile: ./product/Dockerfile
-      target: product-service
-    volumes:
-      - ./product:/product-service
-      - /product/node_modules
-
-  product-service:
-    extends: product-service-base
     env_file: ./product/.env
     ports:
       - "3000:3000"
+    volumes:
+      - ./js-commons:/js-commons
+      - /js-commons/node_modules
+      - ./product:/product-service
+      - /product-service/node_modules
     depends_on:
       product-postgres:
         condition: service_healthy
@@ -129,16 +108,8 @@ services:
       - product-postgres
       - discount-service
 
-  product-service-test:
-    extends: product-service-base
-    entrypoint: npm test
-
-  product-service-lint:
-    extends: product-service-base
-    entrypoint: npm run lint
-
   product-migrate-up:
-    extends: js-commons-base
+    extends: js-commons
     env_file: ./product/.env
     entrypoint: node_modules/.bin/sequelize db:migrate --config src/config/sequelize.js --migrations-path /product/src/ports/sequelize/migrations/
     volumes:
@@ -148,7 +119,7 @@ services:
         condition: service_healthy
 
   product-migrate-down:
-    extends: js-commons-base
+    extends: js-commons
     env_file: ./product/.env
     entrypoint: node_modules/.bin/sequelize db:migrate:undo --config src/config/sequelize.js --migrations-path /product/src/ports/sequelize/migrations/
     volumes:
@@ -158,7 +129,7 @@ services:
         condition: service_healthy
 
   product-seed-generate:
-    extends: js-commons-base
+    extends: js-commons
     env_file: ./product/.env
     entrypoint: node_modules/.bin/sequelize db:seed:all --config src/config/sequelize.js --seeders-path /product/src/ports/sequelize/seeders/
     volumes:
@@ -168,7 +139,7 @@ services:
         condition: service_healthy
 
   product-seed-destroy:
-    extends: js-commons-base
+    extends: js-commons
     env_file: ./product/.env
     entrypoint: node_modules/.bin/sequelize db:seed:undo --config src/config/sequelize.js --seeders-path /product/src/ports/sequelize/seeders/
     volumes:
@@ -177,22 +148,14 @@ services:
       product-postgres:
         condition: service_healthy
 
-  discount-service-base:
+  discount-service:
     build:
       context: .
       dockerfile: ./discount/Dockerfile
-      target: discount-service
     volumes:
       - ./discount:/discount-service
-      - /discount/target
-
-  discount-service:
-    extends: discount-service-base
+      - /discount-service/target
     ports:
       - "4000:4000"
     links:
       - user-service
-
-  discount-service-test:
-    extends: discount-service-base
-    entrypoint: cargo test

@@ -1,10 +1,10 @@
-FROM rust AS discount-service
+FROM rust
 
 RUN rustup component add rustfmt
 
 COPY ./proto /proto
-WORKDIR /discount-service
 COPY ./discount /discount-service
+WORKDIR /discount-service
 
 RUN cargo install --path .
 

@@ -1,13 +1,11 @@
-FROM node AS base
+FROM node
 COPY ./proto /proto
-WORKDIR /js-commons
 COPY ./js-commons /js-commons
-RUN npm install
-WORKDIR /
-
-FROM base AS product-service
-WORKDIR /product-service
 COPY ./product /product-service
+RUN cd js-commons \
+    && npm install \
+    && cd ../product-service \
+    && npm install
+WORKDIR /product-service
 EXPOSE 3000
-RUN npm install
 CMD ["node", "src/bin/index.js"]

@@ -1,5 +1,5 @@
-FROM node AS js-commons
+FROM node
 COPY ./proto /proto
-WORKDIR /js-commons
 COPY ./js-commons /js-commons
+WORKDIR /js-commons
 RUN npm install
