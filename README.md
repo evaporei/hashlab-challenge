@@ -2,14 +2,51 @@
 
 Hashlab's Back-end Code Challenge.
 
+For info on the challenge itself: [link](https://github.com/hashlab/hiring/blob/master/challenges/pt-br/back-challenge.md).
+
 ## Table of Contents
 
+- [Architecture](#architecture)
 - [Installation](#installation)
 - [Running](#running)
 - [Tests](#tests)
 - [Lint](#lint)
 - [Features](#features)
-- [Architecture](#architecture)
+
+## Architecture
+
+The challenge consists on having two main services, the `discount` and the `product` one. I've made the first one in `Rust` and the second one in `JavaScript` (Node.js).
+
+Since the `discount` service needed to access an users table, and I don't feel like this should be this service's responsability, I've created a third service, `user`. They communicate via gRPC as well.
+
+Since the challenge only asks for two services and two languages, I've created the `user` service in `JavaScript` as well to ease not having to review another language. This also made me create another project with common code between the `JavaScript` applications, called `js-commons`.
+
+```
+hashlab-challenge
+│   ...
+└─── discount
+│   └─── ...
+└─── js-commons
+│   └─── ...
+└─── product
+│   └─── ...
+└─── proto
+│   └─── ...
+└─── scripts
+│   └─── ...
+└─── scripts
+│   └─── ...
+└─── user
+    └─── ...
+```
+
+- The `discount` folder contains `discount` service;
+- The `js-commons` folder contains `js-commons` library;
+- The `product` folder contains `product` service;
+- The `discount` folder contains `discount` service;
+- The `proto` folder contains the protobuf files;
+- The `scripts` folder contains the script files;
+- The `user` folder contains `user` service.
 
 ## Installation
 
@@ -74,12 +111,3 @@ Uses ESLint on JS projects and Cargo formatter in Rust.
 - Get User
 - Calculate Discount
 - Get Products (with or without discount by user)
-
-## Architecture
-
-Since there are four (three applications + one library) projects there's a `README.md` on both folders explaining the architecture.
-
-- [js-commons](https://github.com/otaviopace/hashlab-challenge/blob/master/js-commons/README.md)
-- [user-service](https://github.com/otaviopace/hashlab-challenge/blob/master/user/README.md)
-- [discount-service](https://github.com/otaviopace/hashlab-challenge/blob/master/discount/README.md)
-- [product-service](https://github.com/otaviopace/hashlab-challenge/blob/master/product/README.md)
