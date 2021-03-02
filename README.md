@@ -123,6 +123,48 @@ Uses ESLint on JS projects and Cargo formatter in Rust.
 
 ## Features
 
-- Get User
-- Calculate Discount
-- Get Products (with or without discount by user)
+If you've ran all commands above you should probably be able to run the gRPCurls and curls below.
+
+### Get User
+
+Get an user which the birthday is today:
+
+> Request
+```shell
+grpcurl -plaintext -import-path ../hashlab-challenge/proto -proto user.proto -d '{"user_id": "usr_ckljj7jy900001iofhtrehz8u"}' [::]:50051 user.UserService/GetUser
+```
+
+> Response
+```shell
+{
+  "user": {
+    "id": "usr_ckljj7jy900001iofhtrehz8u",
+    "firstName": "Happy",
+    "lastName": "Birthday",
+    "dateOfBirth": "2021-03-02"
+  }
+}
+```
+
+Get an user that isn't their birthday:
+
+> Request
+```shell
+grpcurl -plaintext -import-path ../hashlab-challenge/proto -proto user.proto -d '{"user_id": "usr_ckljj7jye00011iof2oh53ccr"}' [::]:50051 user.UserService/GetUser
+```
+
+> Response
+```shell
+{
+  "user": {
+    "id": "usr_ckljj7jye00011iof2oh53ccr",
+    "firstName": "No",
+    "lastName": "Birthday",
+    "dateOfBirth": "2021-02-28"
+  }
+}
+```
+
+### Calculate Discount
+
+### Get Products (with or without discount by user)
